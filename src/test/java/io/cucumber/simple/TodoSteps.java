@@ -24,6 +24,5 @@ public class TodoSteps {
     @Then("Item with name {string} was added")
     public void itemWithNameWasAdded(String itemName) {
         List<Item> addedItems = new MainPage().getAllItems();
-        System.out.println();
     }
 }
