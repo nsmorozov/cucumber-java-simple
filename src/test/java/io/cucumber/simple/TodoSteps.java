@@ -8,6 +8,7 @@ import io.cucumber.simple.pages.MainPage;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TodoSteps {
 
@@ -24,5 +25,6 @@ public class TodoSteps {
     @Then("Item with name {string} was added")
     public void itemWithNameWasAdded(String itemName) {
         List<Item> addedItems = new MainPage().getAllItems();
+        assertThat(addedItems).extracting(Item::getTitle).containsExactly(itemName);
     }
 }
