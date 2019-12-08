@@ -27,4 +27,10 @@ public class TodoSteps {
         List<Item> addedItems = new MainPage().getAllItems();
         assertThat(addedItems).extracting(Item::getTitle).containsAnyOf(itemName);
     }
+
+    @Then("I mark item with the name {string} done")
+    public void iMarkItemWithTheNameDone(String itemName) {
+        new MainPage().toggleAllItems(itemName);
+        System.out.println();
+    }
 }
