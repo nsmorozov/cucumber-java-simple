@@ -3,6 +3,7 @@ package io.cucumber.simple.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
+import utils.Timeouts;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -18,7 +19,7 @@ public class MainPage extends BasePage {
     private static final String ITEM_VIEW = ".//li[div[@class='view']]";
 
     public MainPage() {
-        $(ITEM_INPUT).waitUntil(Condition.visible, ELEMENT_LOAD_TIMEOUT);
+        $(ITEM_INPUT).waitUntil(Condition.visible, Timeouts.ELEMENT_LOAD);
     }
 
     public void addItem(String itemName) {
@@ -28,9 +29,9 @@ public class MainPage extends BasePage {
     }
 
 
-    public List<Item> getAllItems() {
+    public List<ItemView> getAllItemViews() {
         return $(ITEM_LIST).$$("li").stream()
-                .map(s -> new Item(s.$("label").getText(), s.getAttribute("class").contains("completed")))
+                .map(s -> new ItemView(s.$("label").getText(), s.getAttribute("class").contains("completed")))
                 .collect(Collectors.toList());
     }
 

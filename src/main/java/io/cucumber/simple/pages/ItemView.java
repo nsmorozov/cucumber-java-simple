@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Item {
+public class ItemView {
 
     private String title;
     private Boolean isChecked;

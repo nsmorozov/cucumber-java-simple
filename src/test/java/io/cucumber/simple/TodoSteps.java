@@ -2,7 +2,7 @@ package io.cucumber.simple;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.simple.pages.Item;
+import io.cucumber.simple.pages.ItemView;
 import io.cucumber.simple.pages.MainPage;
 
 import java.util.List;
@@ -24,8 +24,8 @@ public class TodoSteps {
 
     @Then("Item with name {string} was added")
     public void itemWithNameWasAdded(String itemName) {
-        List<Item> addedItems = new MainPage().getAllItems();
-        assertThat(addedItems).extracting(Item::getTitle).containsAnyOf(itemName);
+        List<ItemView> addedItemViews = new MainPage().getAllItemViews();
+        assertThat(addedItemViews).extracting(ItemView::getTitle).containsAnyOf(itemName);
     }
 
     @Then("I mark item with the name {string} done")
