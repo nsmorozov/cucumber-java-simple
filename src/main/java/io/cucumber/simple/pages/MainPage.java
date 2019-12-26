@@ -35,20 +35,18 @@ public class MainPage extends BasePage {
                 .collect(Collectors.toList());
     }
 
-    private List<SelenideElement> getItemByName(String itemName){
-        return $$x(ITEM_VIEW).stream().filter(e -> e.$("label").getText().equalsIgnoreCase(itemName)).collect(Collectors.toList());
-    }
-
-    public void toggleItem(String itemName){
-        List<SelenideElement> elementList = getItemByName(itemName);
-        elementList.stream().findFirst().orElseThrow(NoSuchElementException::new).$("input").click();
+    private List<Item> getItemByName(String itemName){
+        return $$x(ITEM_VIEW).stream()
+                .filter(e -> e.$("label").getText().equalsIgnoreCase(itemName))
+                .map(Item::new)
+                .collect(Collectors.toList());
     }
 
     public void toggleAllItems(String itemName){
-        List<SelenideElement> elementList = getItemByName(itemName);
+        List<Item> elementList = getItemByName(itemName);
         elementList.forEach(e -> {
-            System.out.println("clicking on " + e.getText());
-            e.$("input").click();
+            System.out.println("clicking on " + e.getTitle());
+            e.toggleItem();
         });
     }
 }

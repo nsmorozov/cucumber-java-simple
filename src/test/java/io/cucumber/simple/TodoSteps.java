@@ -33,4 +33,9 @@ public class TodoSteps {
         new MainPage().toggleAllItems(itemName);
         System.out.println();
     }
+
+    @Then("Items should be checked")
+    public void itemsShouldBeChecked(List<String> items) {
+        System.out.printf("");
+    }
 }
