@@ -25,6 +25,5 @@ Feature: User add item and marked them done
     Then  I mark item with the name "Clean black mirror" done
     And   I mark item with the name "Pay for electricity" done
     Then  Items should be checked
-    |Clean black mirror|
+    |Clean black mirror |
     |Pay for electricity|
-

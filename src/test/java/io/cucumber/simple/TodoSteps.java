@@ -2,12 +2,14 @@ package io.cucumber.simple;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.simple.pages.ItemView;
+import io.cucumber.simple.pages.Item;
 import io.cucumber.simple.pages.MainPage;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.open;
+import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TodoSteps {
@@ -24,8 +26,8 @@ public class TodoSteps {
 
     @Then("Item with name {string} was added")
     public void itemWithNameWasAdded(String itemName) {
-        List<ItemView> addedItemViews = new MainPage().getAllItemViews();
-        assertThat(addedItemViews).extracting(ItemView::getTitle).containsAnyOf(itemName);
+        List<Item> addedItems = new MainPage().getItems();
+        assertThat(addedItems).extracting(Item::getTitle).containsAnyOf(itemName);
     }
 
     @Then("I mark item with the name {string} done")
@@ -35,7 +37,10 @@ public class TodoSteps {
     }
 
     @Then("Items should be checked")
-    public void itemsShouldBeChecked(List<String> items) {
-        System.out.printf("");
+    public void itemsShouldBeChecked(List<String> expectedItems) {
+        List<Item> items = new MainPage().getItems().stream().filter(Item::isChecked).collect(Collectors.toList());
+        assertThat(items).as(format("All items %s should be checked", expectedItems))
+                .extracting(Item::getTitle)
+                .containsAll(expectedItems);
     }
 }

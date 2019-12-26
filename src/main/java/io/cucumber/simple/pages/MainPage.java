@@ -28,13 +28,6 @@ public class MainPage extends BasePage {
                 .sendKeys(Keys.ENTER);
     }
 
-
-    public List<ItemView> getAllItemViews() {
-        return $(ITEM_LIST).$$("li").stream()
-                .map(s -> new ItemView(s.$("label").getText(), s.getAttribute("class").contains("completed")))
-                .collect(Collectors.toList());
-    }
-
     private List<Item> getItemByName(String itemName){
         return $$x(ITEM_VIEW).stream()
                 .filter(e -> e.$("label").getText().equalsIgnoreCase(itemName))
@@ -42,10 +35,30 @@ public class MainPage extends BasePage {
                 .collect(Collectors.toList());
     }
 
+    public List<Item> getItems() {
+        return $$x(ITEM_VIEW).stream()
+                .map(Item::new)
+                .collect(Collectors.toList());
+    }
+
+    public void checkItem(String itemName) {
+        List<Item> elementList = getItemByName(itemName);
+        if (!elementList.get(0).isChecked()) {
+            elementList.get(0).toggleItem();
+        }
+    }
+
+    public void unCheckItem(String itemName) {
+        List<Item> elementList = getItemByName(itemName);
+        if (elementList.get(0).isChecked()) {
+            elementList.get(0).toggleItem();
+        }
+    }
+
     public void toggleAllItems(String itemName){
         List<Item> elementList = getItemByName(itemName);
         elementList.forEach(e -> {
-            System.out.println("clicking on " + e.getTitle());
+            System.out.println("Clicking on " + e.getTitle());
             e.toggleItem();
         });
     }
