@@ -1,12 +1,10 @@
 package io.cucumber.simple.pages;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 import utils.Timeouts;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.*;
