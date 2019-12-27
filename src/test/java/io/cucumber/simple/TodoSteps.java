@@ -2,6 +2,7 @@ package io.cucumber.simple;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.cucumber.simple.pages.Item;
 import io.cucumber.simple.pages.MainPage;
 
@@ -30,7 +31,7 @@ public class TodoSteps {
         assertThat(addedItems).extracting(Item::getTitle).containsAnyOf(itemName);
     }
 
-    @Then("I mark item with the name {string} done")
+    @Then("I mark all items with the name {string} done")
     public void iMarkItemWithTheNameDone(String itemName) {
         new MainPage().toggleAllItems(itemName);
         System.out.println();
@@ -42,5 +43,17 @@ public class TodoSteps {
         assertThat(items).as(format("All items %s should be checked", expectedItems))
                 .extracting(Item::getTitle)
                 .containsAll(expectedItems);
+    }
+
+    @When("I mark single item with the name {string}")
+    public void iMarkSingleItemWithTheName(String itemName) {
+        new MainPage().checkItem(itemName);
+    }
+
+    @Then("Counter should show {string}")
+    public void counterShouldShow(String counterStatus) {
+        assertThat(new MainPage().getCounterMessage())
+                .as("Counter message should contain correct number of left items")
+                .isEqualToIgnoringCase(counterStatus);
     }
 }
